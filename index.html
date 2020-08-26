@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>
+			Calculator
+		</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Calculator</h1>
+		<textarea placeholder="Here come task" onkeyup="console.group();document.querySelector('#output').innerHTML=calc(this.value);console.groupEnd()"></textarea>
+		<p id="output"></p>
+		<h2>Working functions</h2>
+		<p>PI<br>Sin()<br>Cos()<br>Tan()<br>aSin(): arccosine<br>aCos(): arccosine<br>aTan(): arctangent<br>DtR(): Degrees to radians<br>RtD(): Radians to degrees</p>
+		<script src="cal.js"></script>
+		<script>
+			function up(){
+				console.group()
+				try{
+					document.querySelector('#output').innerHTML=calc(document.querySelector('textarea').value)
+				}
+				catch(err){
+					console.log(err)
+				}
+				console.groupEnd()
+			}
+		</script>
+	</body>
+</html>
