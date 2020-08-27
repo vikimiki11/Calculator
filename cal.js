@@ -27,10 +27,12 @@ function calc(input,ignore,depth){
 	while(input.includes(" ")){
 		input=input.replace(" ","")
 	}
-	brc=0
+	var brc=0
 	//MARK: remove brackets with check of right brackets
 	var remove=[]
-	count=0
+	var count=0
+	var start
+	var content
 	for(i of input){
 		if(i==")"){
 			brc--
@@ -48,7 +50,6 @@ function calc(input,ignore,depth){
 			}
 			brc++
 		}
-		
 		if(brc<0){
 			console.error("wrong brackets "+(count+1)+" in "+ input+" in depth "+depth)
 			return NaN
@@ -56,7 +57,7 @@ function calc(input,ignore,depth){
 		count++
 	}
 	if(brc>0){
-		br=""
+		var br=""
 		for(i=0;i!=(brc-1);i++){
 			br+=")"
 		}
@@ -68,18 +69,24 @@ function calc(input,ignore,depth){
 	console.log(remove)
 	console.log(depth+": "+input)
 	for(i in remove){
-		y=remove.length-i-1
+		var y=remove.length-i-1
 		//input=input.split("("+remove[i][2]+")").join((parseInt(input[remove[i][0]-1])?"*":"")+calc(remove[i][2],ignore,depth)+(parseInt(input[remove[i][1]+1])?"*":""))
 		//input=input.replace("("+remove[i][2]+")",(parseInt(input[remove[i][0]-1])?"*":"")+calc(remove[i][2],ignore,depth)+(parseInt(input[remove[i][1]+1])?"*":""))
+		var chose
 		try {
 			chose=input[remove[y][0]-3]+input[remove[y][0]-2]+input[remove[y][0]-1]
-			if(arit.includes(chose)){chose=input[remove[y][0]-4]+chose}
-			if(arit.includes(chose)){}
-		} catch (error) {
+			if(arit.includes(chose)&&arit.includes(input[remove[y][0]-4])){
+				chose=input[remove[y][0]-4]+chose;
+				if(!arit.includes(chose)){
+					chose=input[remove[y][0]-3]+input[remove[y][0]-2]+input[remove[y][0]-1]
+				}
+			}
 			
+		} catch (error) {
+			chose=""
 		}
-		
-		input=input.slice(0,remove[y][0])+(num.includes(input[remove[y][0]-1])?"*":"")+fun(chose,calc(remove[y][2],ignore,depth))+(num.includes(input[remove[y][1]+1])?"*":"")+input.slice(remove[y][1]+1,undefined)
+		if(!fun(chose,calc(remove[y][2],ignore,depth))){console.error("err in depth "+depth+": "+chose+"("+remove[y][2]+")"+" return "+fun(chose,calc(remove[y][2],ignore,depth)))}
+		input=input.slice(0,remove[y][0]-chose.length)+(num.includes(input[remove[y][0]-1-chose.length])?"*":"")+fun(chose,calc(remove[y][2],ignore,depth))+(num.includes(input[remove[y][1]+1])?"*":"")+input.slice(remove[y][1]+1,undefined)
 	}
 	/* while(input.includes("(")){
 		zavorka=input.slice(input.indexOf("(")+1,input.includes(")")?input.indexOf(")"):undefined)
@@ -91,7 +98,7 @@ function calc(input,ignore,depth){
 	console.log(depth+": "+input)
 	return eval(input)
 }
-arit="asinacosatandtrtd"
+var arit="asinacosatandtrtd"
 function fun(a,input){
 	switch(a){
 		case "sin":
@@ -120,4 +127,4 @@ function dtr(a){
 function rtd(a){
 	return a/Math.PI*180
 }
-num="0123456789"
+var num="0123456789"
