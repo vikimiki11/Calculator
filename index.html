@@ -6,18 +6,18 @@
 		</title>
 		<meta charset="UTF-8">
 	</head>
-	<body>
+	<body onload="up()">
 		<h1>Calculator</h1>
-		<textarea placeholder="Here come task" onkeyup="start()"></textarea>console.group();document.querySelector('#output').innerHTML=calc(this.value);console.groupEnd()
+		<textarea placeholder="Here come task" onkeyup="start()" style="width: 300px;height: 50px;">2+18*(cos(dtr(2*30))+sin(dtr(30)))</textarea>
 		<p id="output"></p>
 		<h2>Working functions</h2>
-		<p>PI<br>Sin()<br>Cos()<br>Tan()<br>aSin(): arc cos<br>aCos(): arc cos<br>aTan(): arc tan<br>DtR(): Degrees to radians<br>RtD(): Radians to degrees</p>
+		<p>1e+3=1000<br>2**10=1024<br>PI=3.141592653589793<br>Sin()<br>Cos()<br>Tan()<br>aSin(): arc sin<br>aCos(): arc cos<br>aTan(): arc tan<br>DtR(): Degrees to radians<br>RtD(): Radians to degrees</p>
 		<script src="cal.js"></script>
 		<script>
 			var kill
 			function start() {
 				clearTimeout(kill)
-				kill=setTimeout(function(){up()},500)
+				kill=setTimeout(function(){up()},250)
 			}
 			function up(){
 				console.group()
